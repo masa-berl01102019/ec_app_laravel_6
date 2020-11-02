@@ -1,0 +1,109 @@
+ログインの実装の流れ（laravel ver 6.18.*）
+1. .envファイルにてurlとDBの設定
+2. config/app.phpにてtimezoneとlocaleの設定
+3. php artisan migrate コマンドでテーブルの立ち上げしておく
+4. composer require laravel/ui 1.* コマンドでlaravel/uiライブラリをインストール
+5. php artisan ui vue --auth コマンドでログイン認証できるようにする
+5. yarnをインストール
+6. yarn run dev でログイン認証画面のCSS等の立ち上げ
+参考URL: Laravel6 ログイン機能を実装する　https://qiita.com/ucan-lab/items/bd0d6f6449602072cb87
+
+マルチログインの実装の流れ（laravel ver 6.18.*）
+< 管理者用のモデルとmigrationファイルの作成>
+1. php artisan make:model Models/Admin -m でadminユーザー用のモデル作成　＊ -m はmigrationファイルも同時に作成のオプション
+2. 作成されたmigrationファイルのテーブルの中身をuserのmigrationファイルと合わせてphp artisan migrateで実行
+3. モデルの階層構造は下記のようにしたいのでUser.phpをModelsディレクトリの直下に移して下記のファイルの名前空間を修正しておく
+
+   　　 app
+   　　　├── Models
+               ├── Admin.php
+               ├── User.php
+
+        名前空間書き換え必要なファイル
+        * app/Models/User.php
+        * app/Http/Controllers/Auth/RegisterController.php
+        * config/auth.php
+
+4. Admin.phpの中身はUser.phpの中身に合わせる * useやclassの継承元もきちんとUserに合わせる
+
+< seederを使ったデモデータの作成 >
+5. php artisan make:seeder seeder名　でuserとadminのデモ用のファイルを作成
+6. 作成されたそれぞれのseederクラスののメソッド内でDBファサードを使ってテーブルの中身（デモ）を作成
+7. DatabaseSeeder.phpで　作成したseederクラス名::class　をcallの引数に渡しておく
+8. php artisan db:seed でテストデータの挿入を完了させておく
+
+< 認証方式の追加(guard) >
+guardではどんなログイン方法にするか(セッションにするかトークンにするかなど)、
+どのデータベースの情報を見にいくか(UserテーブルかAdminテーブルかなど)といった設定を書くことができる。
+9. config/auth.php でデフォルトの認証をwebからuserに変更
+10. guardsにadminを追加
+11. providersにAdminモデルを追加
+12. passwordsにadminを追加
+
+<コントローラーの設定>
+コントローラーは下記のような構造になるように作成していく
+
+    controllers
+    　　　├── Admin
+    　　　│   ├── Auth
+    　　　│   │   ├── LoginController.php
+    　　　│   │   ├── RegisterController.php
+         │   │   ├── others
+    　　　│   └── HomeController.php
+    　　　├── User
+    　　　│   ├── Auth
+    　　　│   │   ├── LoginController.php
+    　　　│   │   ├── RegisterController.php
+         │   │   ├── others
+    　　　│   └── HomeController.php
+    　　　└── Controller.php
+
+13. php artisan make:controller ディレクトリ名/HomeController　コマンドでAdmin/Userディレクトリ直下にコントローラーの作成
+14. 元々あるAuthディレクトリをそれぞれの階層にコピーして設置 * 各ファイルの名前空間とmiddlewareの設定も変更しておく
+15. 上記13で作成したコントローラーのconstructメソッドでmiddleware(ミドルウェア)でauthを設定することでこのコントローラーを経由する全てアクションはログイン認証が必要になるようにしておく
+16. とりあえずindexアクションでアクセスがとんできたらreturn view(admin(or user).home)にアクセスするように設定しておく
+
+< ルーティングの設定 >
+17.今回は未登録のユーザーと登録されたユーザーと管理ユーザーと３パターンでルーティングを分けているのでRoute::group(function() { });でわけてあげる
+　　Auth認証が必要な登録されたユーザー(user)と管理ユーザー(admin)はGuardで認証を分けてあるので、それぞれログイン後の処理をRoute::middleware('auth:user/admin')と指定してControllerとパスを紐づける
+   * ログイン関係のルーティングはこの時点である程度作成されているので php artisan route:list で確認して設定していけばいい
+
+< 認証関連のredirect先の設定 >
+* Laravel6.8以降から$redirectToのプロパティがRouteServiceProviderの定数で管理されてる
+18. app/Providers/RouteServiceProvider.phpでadminとuserのリダレクト先のURL(user/homeとadmin/home)を定数に格納する
+19. app/Http/Middleware/Authenticate.phpで未ログイン時にログイン認証が必要なページにアクセスした時のリダイレクト先を指定
+    * ルーティング名を指定してログイン画面にリダイレクト
+20. app/Http/Middleware/RedirectIfAuthenticated.phpでログインしてる時に/loginにアクセスしてきた時のリダイレクト先を指定
+    ＊ user/adminで$guardの種類を指定してそれぞれホーム画面にリダイレクト(上記の18で定めた定数を使用)
+
+<login/registerControllerの設定>
+21. 各loginController.phpで$redirectToの変更/middlewareの設定の変更/Guardの認証方法を指定/ログイン画面の表示/ログアウト処理をかく
+22. 各registerController.phpで$redirectToの変更/middlewareの設定の変更/新規登録画面の表示
+
+<viewの設定>
+コントローラーは下記のような構造になるように作成していく
+        views
+        ├── user
+        │   ├── auth
+        │   │   ├── login.blade.php
+        │   │   └── register.blade.php
+        │   └── home.blade.php
+        │
+        ├── admin
+        │   ├── auth
+        │   │   ├── login.blade.php
+        │   │   └── register.blade.php
+        │   └── home.blade.php
+        │
+        └── layouts
+            ├── user
+            │    └── app.blade.php
+            │
+            └── admin
+                 └── app.blade.php
+
+23. aタグのリンクを修正
+
+参考url: Laravel6でマルチ認証を実装する（UserとAdminの階層を分ける） https://qiita.com/namizatork/items/5d56d96d4c255a0e3a87#controller
+参考url: Laravelのログイン認証の基本(Authentication)を完全理解する https://reffect.co.jp/laravel/laravel-authentication-understand
+

@@ -11,6 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // seederを実行できるように下記を記述 ＊作成したseederクラス名::classをcallの引数に渡しておく
+         $this->call([
+             UsersTableSeeder::class,
+             AdminsTableSeeder::class,
+         ]);
     }
 }

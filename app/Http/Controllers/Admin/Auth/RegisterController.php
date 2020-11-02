@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Models\Admin;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,16 +30,30 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::ADMIN_HOME;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
+
+    // middlewareの設定の変更
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest:admin');
+    }
+
+    // Guardの認証方法を指定
+    protected function guard()
+    {
+        return Auth::guard('admin');
+    }
+
+    // 新規登録画面の表示
+    public function showRegistrationForm()
+    {
+        return view('admin.auth.register');
     }
 
     /**
@@ -47,6 +62,8 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
+    // バリデーション
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -60,11 +77,13 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Admin
      */
+
+    // 登録処理
     protected function create(array $data)
     {
-        return User::create([
+        return Admin::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

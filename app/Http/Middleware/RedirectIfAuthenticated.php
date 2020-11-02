@@ -16,10 +16,20 @@ class RedirectIfAuthenticated
      * @param  string|null  $guard
      * @return mixed
      */
+    // ログインしてる時に/loginにアクセスしてきた時のリダイレクト先を指定
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
+            // 上記はAuth::Guard(インスタンス名)で認証に使うGuardを指定してAuth::check()でログインしてるかcheck
+            if ($guard === 'user') {
+                // $guardがuserの場合の条件分岐
+                return redirect(RouteServiceProvider::HOME);
+            }
+            if ($guard === 'admin') {
+                // $guardがadminの場合の条件分岐
+                return redirect(RouteServiceProvider::ADMIN_HOME);
+            }
+            // 上記でadmin/userのリダイレクト先を指定している
         }
 
         return $next($request);

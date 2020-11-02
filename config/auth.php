@@ -2,6 +2,11 @@
 
 return [
 
+    // 認証方式の追加（Guard）
+    // ルーティングで下記のように middleware を呼ぶと、指定したGuard名で認証されたユーザーだけにアクセス許可するようにするための設定
+    //    Route::get('profile', function() {
+    //    })->middleware('auth:guard-name');
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -13,8 +18,9 @@ return [
     |
     */
 
+    // デフォルトの認証をwebからuserに変更
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'user',
         'passwords' => 'users',
     ],
 
@@ -35,10 +41,17 @@ return [
     |
     */
 
+    //　guardsでadminガードを追加
     'guards' => [
-        'web' => [
+        // 上記のdefaultの設定をwebからuserに変更したので下記もuserに切り替える
+        'user' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+        // Admin用の認証を追加
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
 
         'api' => [
@@ -65,11 +78,20 @@ return [
     |
     */
 
+    //  providersでどのモデルを認証に使うべきかなどが設定
     'providers' => [
+
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
         ],
+        // Modelsディレクトリを作っていれたのでnamespaceを変更
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+        // Adminも上記のUsers同様追加
 
         // 'users' => [
         //     'driver' => 'database',
@@ -93,12 +115,21 @@ return [
     */
 
     'passwords' => [
+
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
+
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        // Adminも上記のUsers同様追加
     ],
 
     /*
