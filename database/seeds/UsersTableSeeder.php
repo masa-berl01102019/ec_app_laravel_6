@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon; // 追加
 
 class UsersTableSeeder extends Seeder
 {
@@ -11,17 +12,43 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        // php artisan make:seeder UsersTableSeeder コマンドでこのseederファイルを作成　テストデータの作成
-        DB::table('users')->insert([
-            'name'              => 'user2',
-            'email'             => 'user2@example.com',
-            'password'          => Hash::make('12345678'), // DBに入れる時はHash::makeで作った値を入れてログイン時にはフォームで受け取ったパスワードをHash::checkで比較
-            'remember_token'    => Str::random(10), // Str::random() は指定された長さのランダムな文字列を生成する
-        ]);
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;'); // 一時的に外部キー制約を無効化
 
-        // 基本的なDBファサードの使い方
-        // use Illuminate\Support\Facades\DB; DB ファサードを use する
-        // DB::table('テーブル名')->queryビルダ;　の形でテーブル名を指定してテーブルに対してinsertやselectなどの操作を行える
-        // insert() は複数の配列を引数にとることが出来て、'カラム名' => '値'の形で格納することで一度のSQL文で複数のレコードを挿入できる。
+        DB::table('users')->truncate(); // テーブルごと削除して再構築
+
+        $file = new SplFileObject('database/csv/users_demo.csv');
+        // SplFileObject(phpのファイル操作のためのクラス) でインスタンス作成
+        $file->setFlags(
+            \SplFileObject::READ_CSV | // CSV 列として行を読み込む
+            \SplFileObject::READ_AHEAD | // 先読み/巻き戻しで読み出す
+            \SplFileObject::SKIP_EMPTY | // 空行は読み飛ばす
+            \SplFileObject::DROP_NEW_LINE // 行末の改行を読み飛ばす
+        );
+        // flagの設定
+
+        $list = []; // 配列の初期化
+        $row_count = 1;
+
+        foreach($file as $line) {
+            if($row_count > 1) { // 最初の一行目(headerの列)を読み込まないよう条件分岐
+                $list[] = [
+                    'name' => $line[0],
+                    'gender' => $line[1],
+                    'date_of_birth' => $line[2],
+                    'tel' => $line[3],
+                    'address' => $line[4],
+                    'email' => $line[5],
+                    'password' => Hash::make($line[6]),
+                    'remember_token' => Str::random(10)
+                ];
+                // 取得した値をカラム名ごとに代入
+            }
+            $row_count++;
+        }
+
+        DB::table('users')->insert($list); // データの挿入
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;'); // 外部キー制約を有効化
+
     }
 }
