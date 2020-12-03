@@ -34,13 +34,8 @@ class ItemsTableSeeder extends Seeder
                     'item_name' => $line[0],
                     'price' => $line[1],
                     'cost' => $line[2],
-                    'comment' => $line[3],
-                    'description' => $line[4],
-                    'season' => $line[5],
-                    'main_pic' => $line[6],
-                    'thumbnail_pic1' => $line[7],
-                    'thumbnail_pic2' => $line[8],
-                    'thumbnail_pic3' => $line[9]
+                    'season' => $line[3],
+                    'made_in' => $line[4]
                 ];
             }
             $row_count++;

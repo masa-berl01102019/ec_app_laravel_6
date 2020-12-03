@@ -12,9 +12,13 @@
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', 'ItemController@index');
+Route::get('/item/{id}', 'ItemController@show');
+
+//Route::get('/item/{id}', 'ItemController@show');
 
 // Userに対してのルーティング
 Route::namespace('User')->prefix('user')->name('user.')->group(function() {
@@ -40,9 +44,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function() {
     // ログイン認証後
     Route::middleware('auth:user')->group(function() {
         // 上記のようにRouteファサードに対してmiddleware('auth:user')で対象とするGuardを指定してルーティングを行える
-        Route::get('/home', 'HomeController@index')->name('home');
+         Route::get('/home', 'HomeController@index')->name('home');
         // グループ内で事前に設定されているので上記はurlが’/user/login’でgetでアクセスされたらUserフォルダ直下のHomeControllerのindexメソッドを呼び出し、名前付きルーティングは'user.home'となる
-
     });
 
 });
@@ -61,7 +64,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function() {
     Route::middleware('auth:admin')->group(function() {
         // TOPページにアクセス
         Route::get('/home', 'HomeController@index')->name('home');
-
     });
 
 });

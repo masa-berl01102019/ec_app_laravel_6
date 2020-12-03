@@ -1,12 +1,12 @@
-﻿item_name,price,cost,comment,description,season,main_pic,thumbnail_pic1,thumbnail_pic2,thumbnail_pic3
-military jacket,5800,1920,comment,color/fablic/madein,autumn,./img/main_pic/clothes1.jpg,./img/thumbnail/clothes1.jpg,./img/thumbnail/clothes1.jpg,./img/thumbnail/clothes1.jpg
-merino wool knit,2200,740,comment,color/fablic/madein,winter,./img/main_pic/clothes2.jpg,./img/thumbnail/clothes2.jpg,./img/thumbnail/clothes2.jpg,./img/thumbnail/clothes2.jpg
-pullover,1700,450,comment,color/fablic/madein,autumn,./img/main_pic/clothes3.jpg,./img/thumbnail/clothes3.jpg,./img/thumbnail/clothes3.jpg,./img/thumbnail/clothes3.jpg
-BD shirts,3200,670,comment,color/fablic/madein,spring,./img/main_pic/clothes4.jpg,./img/thumbnail/clothes4.jpg,./img/thumbnail/clothes4.jpg,./img/thumbnail/clothes4.jpg
-logo T-shirts,1800,530,comment,color/fablic/madein,summer,./img/main_pic/clothes5.jpg,./img/thumbnail/clothes5.jpg,./img/thumbnail/clothes5.jpg,./img/thumbnail/clothes5.jpg
-color pants,3400,750,comment,color/fablic/madein,autumn,./img/main_pic/clothes6.jpg,./img/thumbnail/clothes6.jpg,./img/thumbnail/clothes6.jpg,./img/thumbnail/clothes6.jpg
-print T-shirts A,1400,400,comment,color/fablic/madein,summer,./img/main_pic/clothes7.jpg,./img/thumbnail/clothes7.jpg,./img/thumbnail/clothes7.jpg,./img/thumbnail/clothes7.jpg
-print T-shirts B,1000,300,comment,color/fablic/madein,summer,./img/main_pic/clothes8.jpg,./img/thumbnail/clothes8.jpg,./img/thumbnail/clothes8.jpg,./img/thumbnail/clothes8.jpg
-print T-shirts C,1200,300,comment,color/fablic/madein,summer,./img/main_pic/clothes9.jpg,./img/thumbnail/clothes9.jpg,./img/thumbnail/clothes9.jpg,./img/thumbnail/clothes9.jpg
-short pants,2300,790,comment,color/fablic/madein,spring,./img/main_pic/clothes10.jpg,./img/thumbnail/clothes10.jpg,./img/thumbnail/clothes10.jpg,./img/thumbnail/clothes10.jpg
-pleats skirt,2200,810,comment,color/fablic/madein,spring,./img/main_pic/clothes11.jpg,./img/thumbnail/clothes11.jpg,./img/thumbnail/clothes11.jpg,./img/thumbnail/clothes11.jpg
+﻿item_name,price,cost,season,made_in
+military jacket,5800,1920,autumn,Japan
+merino wool knit,2200,740,winter,China
+pullover,1700,450,autumn,Korea
+BD shirts,3200,670,spring,America
+logo T-shirts,1800,530,summer,Japan
+color pants,3400,750,autumn,China
+print T-shirts A,1400,400,summer,China
+print T-shirts B,1000,300,summer,China
+print T-shirts C,1200,300,summer,Korea
+short pants,2300,790,spring,China
+pleats skirt,2200,810,spring,China

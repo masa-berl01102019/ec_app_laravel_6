@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
              StocksTableSeeder::class,
              OrdersTableSeeder::class,
              OrderDetailsTableSeeder::class,
+             DescriptionsTableSeeder::class,
+             ImgsTableSeeder::class,
          ]);
     }
 }

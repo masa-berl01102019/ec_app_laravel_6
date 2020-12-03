@@ -19,7 +19,7 @@ class CreateSizesTable extends Migration
             $table->foreign('item_id')->references('id')->on('items');
             $table->unsignedInteger('size');
             $table->unsignedInteger('width')->nullable(); // 身幅
-            $table->unsignedInteger('sholder_width')->nullable(); // 肩幅
+            $table->unsignedInteger('shoulder_width')->nullable(); // 肩幅
             $table->unsignedInteger('raglan_sleeve_length')->nullable(); // 裄丈
             $table->unsignedInteger('sleeve_length')->nullable(); // 袖丈
             $table->unsignedInteger('length')->nullable(); // 着丈

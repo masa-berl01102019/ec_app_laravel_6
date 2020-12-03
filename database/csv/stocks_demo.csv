@@ -1,7 +1,7 @@
 ﻿item_id,color,quantity_s,quantity_m,quantity_l
-1,red,30,20,10
+1,red,30,20,0
 1,blue,45,15,20
-1,yellow,15,10,74
+1,yellow,-1,10,74
 2,pink,43,28,23
 2,gray,65,52,64
 3,navy,56,96,43

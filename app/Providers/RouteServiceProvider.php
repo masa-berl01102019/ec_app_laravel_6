@@ -23,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
      */
 
     // user リダイレクト先の設定
-    public const HOME = '/user/home';
+    public const HOME = '/';
 
     // admin リダイレクト先の設定
     public const ADMIN_HOME = '/admin/home';
