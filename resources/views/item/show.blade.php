@@ -4,25 +4,28 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <h1 class="col-12">{{ $item->item_name }}</h1>
-            <div class="col-8">
+            <div class="col-6">
                 <div class="row">
                     @foreach($item->imgs as $img)
                         @if($img->img_category == 0)
-                            <img class="col-12" src="{{ asset('/assets/img/item_main_pic/' . $img->file_name) }}" alt="test_img" height="600">
+                            <img class="col-12" src="{{ asset('/assets/img/item_main_pic/' . $img->file_name) }}" alt="test_img" height="430">
                         @elseif($img->img_category == 1)
                             <img class="col-4" src="{{ asset('/assets/img/item_thumbnail_pic/' . $img->file_name) }}" alt="test_img" height="200">
                         @endif
                     @endforeach
                 </div>
             </div>
-            <div class="col-4">
-                <h2 class="col-12">¥{{ $item->price }}<span style="font-size: 10px"> 税込</span></h2>
+            <div class="mt-3 col-6">
+                <h2 class="col-12">¥{{ $item->price }}<span style="font-size: 10px"> 税込</span>
+                    <button type="button" class="btn btn-outline-primary"><a class="col-12" href="{{url('/')}}">カートに入れる</a></button>
+                </h2>
+
                 <p class="col-12">{{ $item->season }}</p>
                 @foreach($item->descriptions as $desc)
-                    <p class="col-12">{{ $desc->title }}</p>
-                    <p class="col-12">{{ $desc->body }}</p>
+                    <p style="font-weight: bold; font-size: 12px" class="col-11">{{ $desc->title }}</p>
+                    <p style="font-size: 12px" class="col-11">{{ $desc->body }}</p>
                 @endforeach
-                <div class="row justify-content-md-center">
+                <div class="row col-12 justify-content-md-center">
                     <table class="table table-bordered table-sm">
                         <thead>
                         <tr>
@@ -42,13 +45,10 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="button" class="btn btn-danger">
-                    <a class="col-12" href="{{url('/')}}">カートに入れる</a>
-                </button>
             </div>
         </div>
 
-        <div class="row justify-content-md-center">
+        <div class="row col-12 mt-3 justify-content-md-center">
             <table class="table table-bordered table-sm">
                 <thead>
                 <tr>

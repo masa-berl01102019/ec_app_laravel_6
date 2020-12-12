@@ -15,10 +15,12 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'ItemController@index');
-Route::get('/item/{id}', 'ItemController@show');
+Route::get('/', 'ItemController@index')->name('home');
+Route::get('/item/{id}', 'ItemController@show')->name('detail');
+Route::get('/search', 'SearchController@index')->name('search');
+Route::get('/category/{gender}/{main_category?}/{sub_category?}', 'CategoryController@index')->name('category');
+// ルートパラメータを渡す時は？をつければパラメータが挿入されなくても大丈夫
 
-//Route::get('/item/{id}', 'ItemController@show');
 
 // Userに対してのルーティング
 Route::namespace('User')->prefix('user')->name('user.')->group(function() {

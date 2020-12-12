@@ -7,16 +7,58 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    public function index()
+
+    protected $search_items;
+
+    // プロパティを宣言後にコンストラクタ内でそれぞれに値をセットして継承したコントローラがアクセスできるようにしている
+    public function __construct()
     {
-        $items = Item::with('imgs')->latest()->get();
-        return view('item.index')->with('items',$items);
+        parent::__construct(); // 親コンストラクタ(Controller.php)を呼び出し
+
+    }
+
+    public function index(Request $request)
+    {
+        // homeにアクセスするとソートの設定が消える　リダイレクト時にパラメータを変数で渡す必要有り
+
+        // 在庫の有無でソート
+        if (!is_null($request->stock)) {
+            $stock_sort = $request->stock == 1? true:false; // 1:在庫有りのみ　0:在庫無しも含む
+            $this->search_items->when( $stock_sort, function ($query) {
+                return $query->where('quantity_s', '>', 0) // trueの処理
+                ->where('quantity_m', '>', 0)
+                    ->where('quantity_l', '>', 0);
+            }, function ($query) {
+                return $query->where('quantity_s', '>=', 0) // falseの処理
+                ->where('quantity_m', '>=', 0)
+                    ->where('quantity_l', '>=', 0);
+            });
+        }
+
+        // 価格順でソート
+        if(!is_null($request->price)) {
+            $price_sort = $request->price;
+            $this->search_items->orderBy('price', $price_sort);
+        }
+
+        // 新古順でソート　＊価格順と新古順の両方でソートがかかった場合は価格順を優先して、同価格の時に新古順でソートされる仕組み
+        if(!is_null($request->date)) {
+            $date_sort = $request->date;
+            $this->search_items->orderBy('items.created_at', $date_sort);
+        }
+
+        // コレクションを生成
+        $items = $this->search_items->paginate(6);
+        // paginate()に値をセットしてページネーションを作成
+        // 参考URL: https://qiita.com/ryu19maki/items/cf35b1abd1814e722f14
+
+        return view('item.index', ['items' => $items]);
     }
 
     public function show($id)
     {
-
-        $item = Item::where('id', $id)->with([
+        // リレーション
+        $item = Item::where('id', $id)->where('delete_flg', 0)->with([
             'sizes' => function ($query) {
                 $query->select(['item_id','size', 'width', 'shoulder_width', 'raglan_sleeve_length', 'sleeve_length', 'length', 'waist', 'hip', 'rise', 'inseam', 'thigh_width', 'outseam', 'sk_length', 'hem_width', 'weight']);
                 // FK('item_id')を渡さないと紐づかない
@@ -80,12 +122,4 @@ class ItemController extends Controller
         return view('item.show',['item' => $item[0], 'size' => $size, 'stock' => $stock]);
     }
 
-//            $item->categories[1]->id == 3 // men's tops
-//            $item->categories[1]->id == 4 // men's Jackets / Coats
-//            $item->categories[1]->id == 7 // women's tops
-//            $item->categories[1]->id == 8 // women's Jackets / Coats
-//            $item->categories[1]->id == 5 // men's pants
-//            $item->categories[1]->id == 9 // women's pants
-//            $item->categories[1]->id == 11 // women's skirts
-//            $item->categories[1]->id == 12 // women's one piece
 }

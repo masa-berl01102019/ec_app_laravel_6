@@ -2,11 +2,11 @@
 1,Men's,0
 2,Women's,0
 3,Tops,1
-4,Jackets / Coats,1
+4,Jackets & Coats,1
 5,Pants,1
 6,All in ones,1
 7,Tops,2
-8,Jackets / Coats,2
+8,Jackets & Coats,2
 9,Pants,2
 10,All in ones,2
 11,Skirts,2
@@ -29,7 +29,7 @@
 28,Coverall,4
 29,Military jacket,4
 30, Down vest,4
-31,Down jacket / coat,4
+31,Down jacket & coat,4
 32,Duffle coat,4
 33,Mods coat,4
 34,Pea coat,4
@@ -45,7 +45,7 @@
 44,Chino pants,5
 45,Slacks,5
 46,others,5
-47,Salopette / Overalls,6
+47,Salopette & Overalls,6
 48,All-in-one,6
 49,Ensemble,7
 50,Camisole,7
@@ -68,7 +68,7 @@
 67,Coverall,8
 68,Military jacket,8
 69, Down vest,8
-70,Down jacket / coat,8
+70,Down jacket & coat,8
 71,Duffle coat,8
 72,Mods coat,8
 73,Pea coat,8
@@ -84,7 +84,7 @@
 83,Chino pants,9
 84,Slacks,9
 85,others,9
-86,Salopette / Overalls,10
+86,Salopette & Overalls,10
 87,All-in-one,10
 88,Skirts,11
 89,Denim skirts,11

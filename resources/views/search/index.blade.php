@@ -5,6 +5,16 @@
 @endsection
 
 @section('content')
+    {{-- パンくずリスト --}}
+    <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('home')}}">HOME</a></li>
+                <li class="breadcrumb-item">検索キーワード( {{$previous_keyword}} )</li>
+            </ol>
+        </nav>
+    </div>
+
     {{-- メイン --}}
     <div class="row">
         @forelse ($items as $item)
