@@ -26,12 +26,12 @@ class ItemController extends Controller
             $stock_sort = $request->stock == 1? true:false; // 1:在庫有りのみ　0:在庫無しも含む
             $this->search_items->when( $stock_sort, function ($query) {
                 return $query->where('quantity_s', '>', 0) // trueの処理
-                ->where('quantity_m', '>', 0)
-                    ->where('quantity_l', '>', 0);
+                            ->where('quantity_m', '>', 0)
+                            ->where('quantity_l', '>', 0);
             }, function ($query) {
                 return $query->where('quantity_s', '>=', 0) // falseの処理
-                ->where('quantity_m', '>=', 0)
-                    ->where('quantity_l', '>=', 0);
+                            ->where('quantity_m', '>=', 0)
+                            ->where('quantity_l', '>=', 0);
             });
         }
 
@@ -48,7 +48,7 @@ class ItemController extends Controller
         }
 
         // コレクションを生成
-        $items = $this->search_items->paginate(6);
+         $items = $this->search_items->paginate(6);
         // paginate()に値をセットしてページネーションを作成
         // 参考URL: https://qiita.com/ryu19maki/items/cf35b1abd1814e722f14
 
@@ -58,7 +58,7 @@ class ItemController extends Controller
     public function show($id)
     {
         // リレーション
-        $item = Item::where('id', $id)->where('delete_flg', 0)->with([
+        $item = Item::select('items.id', 'item_name', 'price', 'season', 'made_in')->where('id', $id)->where('delete_flg', 0)->with([
             'sizes' => function ($query) {
                 $query->select(['item_id','size', 'width', 'shoulder_width', 'raglan_sleeve_length', 'sleeve_length', 'length', 'waist', 'hip', 'rise', 'inseam', 'thigh_width', 'outseam', 'sk_length', 'hem_width', 'weight']);
                 // FK('item_id')を渡さないと紐づかない

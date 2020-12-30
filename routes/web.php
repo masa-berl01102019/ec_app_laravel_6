@@ -22,6 +22,7 @@ Route::get('/category/{gender}/{main_category?}/{sub_category?}', 'CategoryContr
 // ルートパラメータを渡す時は？をつければパラメータが挿入されなくても大丈夫
 
 
+
 // Userに対してのルーティング
 Route::namespace('User')->prefix('user')->name('user.')->group(function() {
     // namespace: 今回フォルダの階層がControllers/User/HomeController.phpなのでcontroller@actionを指定する際に名前スペースの指定が必要になる
@@ -46,8 +47,14 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function() {
     // ログイン認証後
     Route::middleware('auth:user')->group(function() {
         // 上記のようにRouteファサードに対してmiddleware('auth:user')で対象とするGuardを指定してルーティングを行える
-         Route::get('/home', 'HomeController@index')->name('home');
-        // グループ内で事前に設定されているので上記はurlが’/user/login’でgetでアクセスされたらUserフォルダ直下のHomeControllerのindexメソッドを呼び出し、名前付きルーティングは'user.home'となる
+        // グループ内で事前に設定されているので下記はurlが’/user/login’でgetでアクセスされたらUserフォルダ直下のHomeControllerのindexメソッドを呼び出し、名前付きルーティングは'user.my_page'となる
+        Route::get('/my-account', 'HomeController@index')->name('my_page'); // アカウントTOP画面
+        Route::get('/my-account/show', 'HomeController@show')->name('profile'); // アカウント詳細画面
+        Route::get('/my-account/edit','HomeController@edit')->name('edit'); // アカウント編集画面
+        Route::post('/my-account/{id}/update','HomeController@update')->where('id','[0-9]+')->name('update'); // アカウント更新処理
+        Route::get('/my-account/close','HomeController@close')->name('close'); // アカウント退会画面
+        Route::post('/my-account/{id}/delete','HomeController@destroy')->where('id','[0-9]+')->name('delete'); // アカウント削除処理
+
     });
 
 });

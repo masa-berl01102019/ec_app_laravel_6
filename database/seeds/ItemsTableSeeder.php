@@ -35,7 +35,8 @@ class ItemsTableSeeder extends Seeder
                     'price' => $line[1],
                     'cost' => $line[2],
                     'season' => $line[3],
-                    'made_in' => $line[4]
+                    'made_in' => $line[4],
+                    'created_at' => $line[5],
                 ];
             }
             $row_count++;

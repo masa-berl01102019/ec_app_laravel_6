@@ -1,7 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon; // 追加
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
+// 追加
 
 class UsersTableSeeder extends Seeder
 {
@@ -32,14 +37,22 @@ class UsersTableSeeder extends Seeder
         foreach($file as $line) {
             if($row_count > 1) { // 最初の一行目(headerの列)を読み込まないよう条件分岐
                 $list[] = [
-                    'name' => $line[0],
-                    'gender' => $line[1],
-                    'date_of_birth' => $line[2],
-                    'tel' => $line[3],
-                    'address' => $line[4],
-                    'email' => $line[5],
-                    'password' => Hash::make($line[6]),
-                    'remember_token' => Str::random(10)
+                    'user_last_name' => $line[0],
+                    'user_first_name' => $line[1],
+                    'user_last_name_kana' => $line[2],
+                    'user_first_name_kana' => $line[3],
+                    'gender' => $line[4],
+                    'birthday' => $line[5],
+                    'tel' => $line[6],
+                    'post_code' => $line[7],
+                    'prefecture' => $line[8],
+                    'municipality' => $line[9],
+                    'street_name' => $line[10],
+                    'street_number' => $line[11],
+                    'building' => $line[12],
+                    'email' => $line[13],
+                    'password' => Hash::make($line[14]),
+                    'remember_token' => Str::random(11)
                 ];
                 // 取得した値をカラム名ごとに代入
             }

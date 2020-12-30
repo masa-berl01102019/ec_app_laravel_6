@@ -1,12 +1,12 @@
-﻿item_name,price,cost,season,made_in
-military jacket,5800,1920,autumn,Japan
-merino wool knit,2200,740,winter,China
-pullover,1700,450,autumn,Korea
-BD shirts,3200,670,spring,America
-logo T-shirts,1800,530,summer,Japan
-color pants,3400,750,autumn,China
-print T-shirts A,1400,400,summer,China
-print T-shirts B,1000,300,summer,China
-print T-shirts C,1200,300,summer,Korea
-short pants,2300,790,spring,China
-pleats skirt,2200,810,spring,China
+﻿item_name,price,cost,season,made_in,created_at
+military jacket,5800,1920,autumn,Japan,2020/12/1
+merino wool knit,2200,740,winter,China,2020/3/2
+pullover,1700,450,autumn,Korea,2010/12/3
+BD shirts,3200,670,spring,America,2020/12/4
+logo T-shirts,1800,530,summer,Japan,2019/2/5
+color pants,3400,750,autumn,China,2020/4/6
+print T-shirts A,1400,400,summer,China,2013/12/7
+print T-shirts B,1000,300,summer,China,2018/7/8
+print T-shirts C,1200,300,summer,Korea,2020/12/9
+short pants,2300,790,spring,China,2020/12/10
+pleats skirt,2200,810,spring,China,2018/3/29

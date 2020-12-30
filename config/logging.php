@@ -34,6 +34,10 @@ return [
     |
     */
 
+    // laravel 実行クエリ確認用に追加
+    'enable_sql_log' => env('ENABLE_SQL_LOG', false),
+    // envファイルではENABLE_SQL_LOG=trueを追加したが本番環境に以降する際にはパフォーマンスやセキュリティ上の問題から無効化した方が良い
+
     'channels' => [
         'stack' => [
             'driver' => 'stack',

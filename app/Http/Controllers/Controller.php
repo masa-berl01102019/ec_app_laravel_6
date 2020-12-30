@@ -30,5 +30,6 @@ class Controller extends BaseController
         ->where('img_category', 0)
         ->distinct('items.id');
 
+
     }
 }

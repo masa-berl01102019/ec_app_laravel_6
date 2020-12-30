@@ -1,7 +1,7 @@
 @extends('layouts.user.app')
 
 @section('content')
-    <div class="container">
+    <div class="mt-5 container">
         <div class="row justify-content-md-center">
             <h1 class="col-12">{{ $item->item_name }}</h1>
             <div class="col-6">
@@ -21,6 +21,7 @@
                 </h2>
 
                 <p class="col-12">{{ $item->season }}</p>
+                <p class="col-12">{{ $item->made_in }}</p>
                 @foreach($item->descriptions as $desc)
                     <p style="font-weight: bold; font-size: 12px" class="col-11">{{ $desc->title }}</p>
                     <p style="font-size: 12px" class="col-11">{{ $desc->body }}</p>

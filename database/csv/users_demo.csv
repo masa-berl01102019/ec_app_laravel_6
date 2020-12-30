@@ -1,11 +1,11 @@
-﻿name,gender,date_of_birth,tell,adress,email,password
-tanaka,man,1996/12/13,090-XXXX-XXXX ,Ishikawa,test1@mail.com,12345678
-takahashi,woman,1999/3/22,090-XXXX-XXXX ,Shiga,test2@mail.com,12345678
-suzuki,woman,1987/5/3,090-XXXX-XXXX ,tokyo,test3@mail.com,12345678
-satou,man,1973/8/19,090-XXXX-XXXX ,osaka,test4@mail.com,12345678
-murata,man,2006/6/23,090-XXXX-XXXX ,kyoto,test5@mail.com,12345678
-nakatani,woman,1984/11/6,080-XXXX-XXXX,kanagawa,test6@mail.com,12345678
-yamagishi,woman,1992/8/25,080-XXXX-XXXX,mie,test7@mail.com,12345678
-maeda,man,2002/4/18,080-XXXX-XXXX,kouti,test8@mail.com,12345678
-kawamoto,man,1983/1/27,080-XXXX-XXXX,fukuoka,test9@mail.com,12345678
-yasutani,man,2000/2/28,080-XXXX-XXXX,kagoshima,test10@mail.com,12345678
+﻿user_last_name,user_first_name,user_last_name_kana,user_first_name_kana,gender,birthday,tell,post_code,prefecture,municipality,street_name,street_number,building,email,password
+田中,圭,タナカ,ケイ,0,1996/12/13,090-1111-2222,212-0012,東京都,中野区,大和町,１−１−１,スカイビル３F,test1@mail.com,12345678
+高橋,理佐,タカハシ,リサ,1,1999/3/22,090-1111-2223,212-0013,東京都,中野区,大和町,１−１−２,スカイビル４F,test2@mail.com,12345678
+鈴木,杏奈,スズキ,アンナ,1,1987/5/3,090-1111-2224,212-0014,東京都,中野区,大和町,１−１−３,スカイビル５F,test3@mail.com,12345678
+佐藤,健,サトウ,タケル,0,1973/8/19,090-1111-2225,212-0015,東京都,中野区,大和町,１−１−４,スカイビル６F,test4@mail.com,12345678
+村田,優希,ムラタ,ユウキ,0,2006/6/23,090-1111-2226,212-0016,東京都,中野区,大和町,１−１−５,スカイビル７F,test5@mail.com,12345678
+中谷,勝志,ナカタニ,カツシ,1,1984/11/6,090-1111-2227,212-0017,東京都,中野区,大和町,１−１−６,スカイビル８F,test6@mail.com,12345678
+山岸,大樹,ヤマギシ,ダイキ,1,1992/8/25,090-1111-2228,212-0018,東京都,中野区,大和町,１−１−７,スカイビル９F,test7@mail.com,12345678
+前田,健介,マエダ,ケンスケ,2,2002/4/18,090-1111-2229,212-0019,東京都,中野区,大和町,１−１−８,スカイビル１０F,test8@mail.com,12345678
+川本,竜也,カワモト,タツヤ,3,1983/1/27,090-1111-2230,212-0020,東京都,中野区,大和町,１−１−９,スカイビル１１F,test9@mail.com,12345678
+安谷,亮介,ヤスタニ,リョウスケ,2,2000/2/28,090-1111-2231,212-0021,東京都,中野区,大和町,１−１−１０,スカイビル１２F,test10@mail.com,12345678
